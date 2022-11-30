@@ -1,0 +1,27 @@
+{
+  "name": "todosimple",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/paneryk/todoSimple.git"
+  },
+  "author": "Eryk Wojdyla",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/paneryk/todoSimple/issues"
+  },
+  "homepage": "https://github.com/paneryk/todoSimple#readme",
+  "devDependencies": {
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.0"
+  },
+  "dependencies": {
+    "bootstrap": "^5.2.3",
+    "firebase": "^9.14.0"
+  }
+}
