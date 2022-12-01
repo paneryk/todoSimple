@@ -1,10 +1,6 @@
 import { initializeApp } from "firebase/app";
-import {
-  initFirebase,
-} from "./firebase/firebase";
-import {
-  getUserData
-} from "./firebase/firestore";
+import { initFirebase } from "./firebase/firebase";
+import { getUserData } from "./firebase/firestore";
 import {
   newUserWithEmailAndPass,
   logoutEvent,
@@ -57,19 +53,12 @@ function signInWithEmailAndPass() {
   console.log(services);
 }
 
-// Initiated by firebase.js
-
-export async function handleSignupError(message) {
-  console.log(message);
-}
-
 // Auth state change observer
 async function handleAuthStateChange(user) {
   if (user) {
     console.log("You are loggeddd in as: " + user.uid);
     onLogin(user);
     loggedUser = await getUserData(user.uid);
-    console.log(loggedUser);
   } else {
     console.log("You are logged out");
     onLogout();

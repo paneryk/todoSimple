@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,6 +8,7 @@
     <title>simple.todo</title>
     <script src="./src/main.js" type="module"></script>
 </head>
+
 <body>
     <h2 id="loggedUser"></h2>
     <form id="loginForm" class="noauth">
@@ -26,13 +28,7 @@
     <form id="logOut" class="auth">
         <button type="button" id="logoutBtn">Logout</button>
     </form>
-    <div id="tasksDiv" class="auth">
-        <form id="addTask">
-            <input type="text" id="taskName" placeholder="Name of a task">
-            <input type="text" id="taskDue" placeholder="Task due">
-            <button type="button" id="addTaskBtn">Add a task</button>
-            <button type="button" id="goToDashboard">Go to dashboard</button>
-        </form>
-    </div>
+    <button type="button" id="goToDashboard">Go to dashboard</button>
 </body>
+
 </html>

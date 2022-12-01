@@ -17,11 +17,13 @@
   },
   "homepage": "https://github.com/paneryk/todoSimple#readme",
   "devDependencies": {
+    "date-fns": "^2.29.3",
     "webpack": "^5.75.0",
     "webpack-cli": "^5.0.0"
   },
   "dependencies": {
     "bootstrap": "^5.2.3",
-    "firebase": "^9.14.0"
+    "firebase": "^9.14.0",
+    "list.js": "^2.3.1"
   }
 }

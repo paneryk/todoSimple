@@ -7,6 +7,7 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { initializedServices } from "./firebase.js";
+import { createInitialDb, isNewUser } from "./firestore";
 /*
 AUTHORIZATION
 */
@@ -47,7 +48,7 @@ export function logoutEvent() {
     .catch((error) => console.log(error.message));
 }
 
-export function loginWithProvider(provider) {
+export async function loginWithProvider(provider) {
   if (provider === "google") {
     console.log("trying");
     const provider = new GoogleAuthProvider();

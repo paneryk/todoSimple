@@ -1,30 +1,30 @@
 import { initFirebase } from "../firebase/firebase";
 import { getUserData } from "../firebase/firestore";
-import { renderTasks } from "./modules/tasks";
+import { renderTaskList, getOverdues, getTodays, addTask } from "./modules/tasks";
+import List from "list.js";
+import { Dashboard } from "./modules/dashboard";
 
 const services = initFirebase(handleOnAuthStateChange);
-
-async function initDashboard(user) {
-  const userData = await getUserData(user.uid);
-
-  /*  renderNavbar(userData);
-
-    renderTasks(userData);
-
-    renderSidebar(userData); */
-  renderTasks(userData);
-  showSettings(userData);
-}
-
-async function showSettings(userData) {
-  console.log(userData);
-}
+let currentDashboard = null;
 
 async function handleOnAuthStateChange(user) {
   if (user) {
     console.log("You are loggeddd in as: " + user.uid);
-    initDashboard(user);
+    const currentUser = user;
+    currentDashboard = new Dashboard(currentUser);
+    currentDashboard.initDashboard();
+    addListeners();
+    /* initDashboard(user); */
   } else {
     location.href = "../";
   }
+}
+
+//DOM ELELEMNTS
+const addTaskBtn = document.querySelector("#addTaskBtn");
+
+
+//LISTENERS
+async function addListeners() {
+  addTaskBtn.addEventListener("click", () => {currentDashboard.handleNewTask()});
 }

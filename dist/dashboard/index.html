@@ -7,20 +7,49 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <script src="./src/main.js" type="module"></script>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 
 <body>
-    <div id="navBar">
-
-    </div>
-    <div id="sidebar">
-
-    </div>
     <div id="dashboard">
-        <div id="tasks">
 
+        <div id="tasks">
+            <h3>Overdues:</h3>
+
+            <div id="overdueTasks">
+
+                <div id="overdueTaskList">
+                    <button class="sort" data-sort="task-title" type="button">Sort by name</button>
+                    <button class="sort" data-sort="task-due hidden" type="button">Sort by due</button>
+
+                </div>
+            </div>
+            <h3>today's goals</h3>
+            <ul class="taskList">
+
+            </ul>
         </div>
+        <div id="addTask">
+            <h3>Add a task</h3>
+            <form id="addTask">
+                <input type="text" id="taskName" placeholder="Name of a task">
+                <input type="datetime-local" id="taskDue" placeholder="Task due">
+                <input type="text" id="taskTags" disabled>
+                <br>
+                <textarea id="taskDescription" placeholder="Task description"></textarea> <br>
+                <button type="button" id="addTaskBtn">Add a task</button>
+                <br>
+                <span id="customUserTags">tags go here</span>
+            </form>
+        </div>
+
     </div>
+
+
 </body>
 
 </html>
