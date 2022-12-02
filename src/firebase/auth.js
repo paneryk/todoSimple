@@ -50,7 +50,6 @@ export function logoutEvent() {
 
 export async function loginWithProvider(provider) {
   if (provider === "google") {
-    console.log("trying");
     const provider = new GoogleAuthProvider();
     const { auth } = initializedServices;
     signInWithPopup(auth, provider)

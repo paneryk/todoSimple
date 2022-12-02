@@ -1,0 +1,231 @@
+* {
+    font-family: 'Avenir Next', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.hidden {
+    display: none;
+}
+
+h3 {
+    font-size: 26px;
+    font-weight: 600;
+}
+
+h4 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+/*
+** TASK LIST STYLES
+*/
+
+@task-bg: #fff;
+@border: #EFEFEF;
+@critical: #FF0000;
+@light-grey: #939393;
+
+#dashboardContainer {
+    padding: 20px 20px;
+    max-width: 700px;
+    background-color: #FCFCFC;
+}
+
+#dashboardHeader {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    height: fit-content;
+}
+
+.taskListHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button.sort {
+    width: 45px;
+    height: 45px;
+    background-color: transparent;
+    border: none;
+    border-radius: 45px;
+    background-image: url('./icons/sort.svg');
+    background-repeat: no-repeat;
+    background-size: 22px 22px;
+    background-position: center;
+    cursor: pointer;
+
+    &:hover {
+        background-color: white;
+        border: 1px solid #efefef;
+    }
+}
+
+ul.taskList {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    & div {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    & li {
+        width: 100%;
+        height: 32px;
+        background-color: @task-bg;
+        border: 1px solid @border;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+
+        padding: 0 10px;
+        justify-content: space-between;
+
+        &.completed {
+            opacity: 35%;
+            filter: grayscale(100%);
+        }
+
+    }
+
+    & .critical-task {
+        background-color: fade(@critical, 7%)
+    }
+
+    & .after-title-bullet {
+        font-size: 30px;
+    }
+
+    & .task-tag {
+        position: relative;
+        justify-self: flex-end;
+        padding: 0;
+
+        &::before {
+            content: '#';
+            color: @light-grey;
+            position: relative;
+            left: 3px;
+            font-weight: 200;
+        }
+    }
+
+    & .task-tag.critical {
+        color: @critical;
+    }
+
+}
+
+.task-title.completed {
+    text-decoration: line-through;
+}
+
+/*
+** ACTION BUTTON
+*/
+
+@light-blue: #E1ECF4;
+@medium-blue: #c8e3f5;
+@dark-blue: #79A7C7;
+@button-text: #39739D;
+
+button.action {
+    margin-top: 15px;
+    background-color: @light-blue;
+    border: 1px solid @dark-blue;
+    color: @button-text;
+    border-radius: 4px;
+    padding: .3rem .8rem;
+    position: relative;
+    overflow: hidden;
+    z-index: 2;
+    cursor: pointer;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #fff;
+    }
+
+    &:hover {
+        background-color: @medium-blue;
+    }
+
+}
+
+button#postponeTasks {
+    &.hide {
+        animation-name: disappearBtn;
+        animation-duration: 800ms;
+        animation-fill-mode: forwards;
+    }
+}
+
+@keyframes disappearBtn {
+    0% {
+        opacity: 1;
+        transform: rotateX(0deg);
+    }
+
+    100% {
+        display: none;
+        opacity: 0;
+        transform: rotateX(90deg);
+    }
+}
+
+.postponeSelect {
+    position: relative;
+}
+
+.selectButtons {
+    position: absolute;
+    display: inline-block;
+}
+
+button#postponeToday,
+button#postponeTomorrow {
+    &.invisible {
+        visibility: hidden;
+        z-index: -2;
+    }
+
+    &.show {
+        animation-name: showBtn;
+
+        animation-duration: 800ms;
+
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes showBtn {
+
+        0% {
+            visibility: visible;
+            z-index: 1;
+            animation-delay: 2000ms;
+            opacity: 0;
+            transform: rotateX(0deg);
+        }
+
+        100% {
+
+            opacity: 1;
+        }
+    }
+}

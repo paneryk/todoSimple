@@ -1,4 +1,5 @@
-import { format, isPast, isToday } from "date-fns";
+import { format, isPast, isToday, intlFormatDistance } from "date-fns";
+import { zhCN } from "date-fns/esm/locale";
 
 //RETURNS AN ARRAY OF OVERDUE TASKS
 export function getOverdues(tasksArray) {
@@ -23,16 +24,29 @@ export async function renderTaskList(tasks, formatting) {
   taskList.className += " list";
 
   const templateLi = `
+    <div class="task-content">
     <input type="checkbox" class="task-status">
     <span class="task-title"></span>
-    <span class="task-tags"></span>
+    <span class="after-title-bullet">∙</span>
     <span class="task-due hidden"></span>
     <span class="task-due visible"></span>
-    <span class="task-due-icon"></span>`;
+    </div>
+    <div class="task-tags">
+    <span class="task-tags"></span>
+    </div>`;
 
   for (let i = 0; i < tasks.length; i++) {
     const task = tasks[i];
     const list = document.createElement("li");
+    if (task.status) list.classList.add("completed");
+
+    const hasCriticalTag = await task.tags.reduce((accumulator, currentTag) => {
+      if (currentTag.name === "critical") accumulator = 1;
+      return accumulator;
+    }, 0);
+
+    if (hasCriticalTag) list.classList.add("critical-task");
+
     list.dataset.id = task.id;
     list.innerHTML = templateLi;
     taskList.append(list);
@@ -41,6 +55,7 @@ export async function renderTaskList(tasks, formatting) {
     taskStatus.checked = task.status;
 
     const taskTitle = list.querySelector(".task-title");
+    if (task.status) taskTitle.classList.add("completed");
     taskTitle.textContent = task.title;
 
     let taskTags = list.querySelector(".task-tags");
@@ -50,7 +65,7 @@ export async function renderTaskList(tasks, formatting) {
     taskDueHidden.textContent = format(task.due.toDate(), "yyyy/MM/dd"); // taskDue.textContent = format(task.due.toDate(), formatting);
 
     const taskDue = list.querySelector(".task-due.visible");
-    taskDue.textContent = format(task.due.toDate(), formatting);
+    taskDue.textContent = intlFormatDistance(task.due.toDate(), new Date());
   }
 
   return taskList;
@@ -61,7 +76,12 @@ function renderTags(tagArray) {
   const tags = tagArray;
   let tagTemplate = "";
   for (let i = 0; i < tags.length; i++) {
-    tagTemplate += `<span class="task-tag" style="color: ${tags[i].color}"> #${tags[i].name} </span>`;
+    tagTemplate +=
+      `
+    <span class="` +
+      (tags[i].name == "critical" ? `critical task-tag` : `task-tag`) +
+      `"> 
+    ${tags[i].name} </span>`;
   }
   return tagTemplate;
 }
